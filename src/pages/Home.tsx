@@ -8,13 +8,15 @@ import { Link } from 'react-router-dom';
 export function Home() {
   const [filters, setFilters] = useState<PropertyFilters>({});
 
-  const filteredProperties = properties.filter(property => {
-    if (filters.minPrice && property.price < filters.minPrice) return false;
-    if (filters.maxPrice && property.price > filters.maxPrice) return false;
-    if (filters.beds && property.beds < filters.beds) return false;
-    if (filters.propertyType && property.type !== filters.propertyType) return false;
-    return true;
-  });
+    const filteredProperties = properties.filter(property => {
+        return (
+            (!filters.minPrice || property.price >= filters.minPrice) &&
+            (!filters.maxPrice || property.price <= filters.maxPrice) &&
+            (!filters.beds || property.beds >= filters.beds) &&
+            (!filters.propertyType || property.type === filters.propertyType)
+        );
+    });
+
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

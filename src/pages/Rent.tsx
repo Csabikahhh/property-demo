@@ -18,8 +18,8 @@ export function Rent() {
     if (filters.minPrice && property.price < filters.minPrice) return false;
     if (filters.maxPrice && property.price > filters.maxPrice) return false;
     if (filters.beds && property.beds < filters.beds) return false;
-    if (filters.propertyType && property.type !== filters.propertyType) return false;
-    return true;
+    return !(filters.propertyType && property.type !== filters.propertyType);
+
   });
 
   return (
